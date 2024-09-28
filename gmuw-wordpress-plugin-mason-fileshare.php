@@ -27,6 +27,12 @@
 	);
 
 
+//plugin activation
+require('php/activate-deactivate.php');
+
+//permissions
+require('php/permissions.php');
+
 //admin menu
 include('php/admin-menu.php');
 
@@ -50,3 +56,9 @@ include('php/scripts.php');
 
 //styles
 include('php/styles.php');
+
+//register activation hook
+register_activation_hook(__FILE__, 'gmuw_fs_plugin_activate');
+
+//register deactivation hook
+register_deactivation_hook(__FILE__, 'gmuw_fs_plugin_deactivate');

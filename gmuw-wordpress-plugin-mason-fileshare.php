@@ -25,3 +25,19 @@
 	__FILE__,
 	'gmuw-wordpress-plugin-mason-fileshare'
 	);
+
+
+//admin menu
+	include('php/admin-menu.php');
+
+//admin page
+	include('php/admin-page.php');
+
+//plugin settings
+	include('php/settings.php');
+
+//dashboard
+	include('php/dashboard.php');
+
+//users
+	include('php/users.php');

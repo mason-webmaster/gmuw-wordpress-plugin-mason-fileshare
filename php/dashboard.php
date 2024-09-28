@@ -5,6 +5,30 @@
  */
 
 
+/**
+ * adds custom meta boxes to WordPress admin dashboard
+ */
+add_action('wp_dashboard_setup', 'gmuw_fs_custom_dashboard_meta_boxes');
+function gmuw_fs_custom_dashboard_meta_boxes() {
+
+  // Declare global variables
+  global $wp_meta_boxes;
+
+   /* most recent files */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Most Recent Files", "gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "dashboard","normal");
+
+}
+
+/**
+ * Provides content for the most recent files meta box
+ */
+function gmuw_fs_custom_dashboard_meta_box_files_mostrecent() {
+
+    // Output meta box info
+    echo gmuw_fs_files_mostrecent();
+
+}
+
 //add new user row action to reset a user's dashboard
 add_filter('user_row_actions', 'gmuw_fs_admin_user_reset_dash_link', 10, 2);
 function gmuw_fs_admin_user_reset_dash_link($actions, $user_object) {

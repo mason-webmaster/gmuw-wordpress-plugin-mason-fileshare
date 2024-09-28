@@ -1,12 +1,21 @@
 //Implement datatables
 jQuery(document).ready(function() {
-  jQuery('table.data_table').DataTable({
+
+  //regular datatables
+  jQuery('table.data_table:not(.simple)').DataTable({
     paging: false,
     dom: 'Bfrtip',
     buttons: [
       'copy', 'excel', 'csv', 'print'
     ]
   });
+
+  //simple datatables
+  jQuery('table.data_table.simple').DataTable({
+    paging: false,
+    dom: 'frtip',
+  });
+
 });
 
 //Implement toggle containers

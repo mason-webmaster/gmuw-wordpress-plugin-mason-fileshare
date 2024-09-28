@@ -28,16 +28,25 @@
 
 
 //admin menu
-	include('php/admin-menu.php');
+include('php/admin-menu.php');
 
 //admin page
-	include('php/admin-page.php');
+include('php/admin-page.php');
 
 //plugin settings
-	include('php/settings.php');
+include('php/settings.php');
 
 //dashboard
-	include('php/dashboard.php');
+include('php/dashboard.php');
 
 //users
-	include('php/users.php');
+include('php/users.php');
+
+//file sharing
+include('php/fileshare.php');
+
+//scripts
+include('php/scripts.php');
+
+//styles
+include('php/styles.php');

@@ -2,7 +2,7 @@
 jQuery(document).ready(function() {
 
   //regular datatables
-  jQuery('table.data_table:not(.simple)').DataTable({
+  jQuery('table.data_table:not(.dashboardwidget)').DataTable({
     paging: false,
     dom: 'Bfrtip',
     buttons: [
@@ -11,9 +11,10 @@ jQuery(document).ready(function() {
   });
 
   //simple datatables
-  jQuery('table.data_table.simple').DataTable({
+  jQuery('table.data_table.dashboardwidget').DataTable({
     paging: false,
     dom: 'frtip',
+    order: [[1, 'desc']]
   });
 
 });

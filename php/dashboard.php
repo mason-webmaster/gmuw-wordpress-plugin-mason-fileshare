@@ -15,17 +15,16 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
   global $wp_meta_boxes;
 
    /* most recent files */
-  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Most Recent Files", "gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "dashboard","normal");
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Most Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal");
 
-}
+   /* most recent documents */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_docs", "Most Recent Document Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("documents"));
 
-/**
- * Provides content for the most recent files meta box
- */
-function gmuw_fs_custom_dashboard_meta_box_files_mostrecent() {
+   /* most recent images */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_images", "Most Recent Image Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("images"));
 
-    // Output meta box info
-    echo gmuw_fs_files_mostrecent();
+   /* most recent pdfs */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_pdfs", "Most Recent PDF Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("pdfs"));
 
 }
 

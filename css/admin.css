@@ -10,6 +10,12 @@
     width:2em;
   }
 
+/* dashboard widgets */
+/* give svgs better alignment in widget tables */
+.dashboardwidget td svg {
+  vertical-align:top;
+}
+
 /* style wp dashboard meta box for the big links */
 #gmuw_fs_custom_dashboard_meta_box_upload p a,
 #gmuw_fs_custom_dashboard_meta_box_index p a {

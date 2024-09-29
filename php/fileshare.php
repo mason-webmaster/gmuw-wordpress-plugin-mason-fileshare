@@ -97,38 +97,40 @@ function gmuw_fs_index_file_table($posts){
 	$return_value='';
 
 	//process any actions
-	if (isset($_GET['action'])) {
+	if ( isset($_GET['action']) &&
+		in_array($_GET['action'], array(
+		'edit',
+		'attest',
+		'delete'
+	)) ) {
 
-		if (
-			$_GET['action']=='edit' ||
-			$_GET['action']=='delete'
-		) {
+		//get post id
+		$mypostid = isset($_GET['mypostid']) ? (int)$_GET['mypostid'] : 0;
 
-			//get post id
-			$mypostid = isset($_GET['mypostid']) ? (int)$_GET['mypostid'] : 0;
+		//do we not have a good value?
+		if ($mypostid==0) {
+			$return_value='<div class="notice notice-error is-dismissable "><p>Bad post ID. Unable to '.$_GET['action'].'.</p></div>';
+		} else {
 
-			//do we not have a good value?
-			if ($mypostid==0) {
-				$return_value='<div class="notice notice-error is-dismissable "><p>Bad post ID. Unable to '.$_GET['action'].'.</p></div>';
+			//do we not have permissions?
+			if (!(get_post($mypostid)->post_author == get_current_user_id() || current_user_can('manage_options') ) ) {
+
+				$return_value='<div class="notice notice-error is-dismissable "><p>You do not have permissions.</p></div>';
+
 			} else {
 
-				//do we not have permissions?
-				if (!(get_post($mypostid)->post_author == get_current_user_id() || current_user_can('manage_options') ) ) {
+				//we are good. we have a good id, and we have permissions...
 
-					$return_value='<div class="notice notice-error is-dismissable "><p>You do not have permissions.</p></div>';
+				if ($_GET['action']=='edit') {
+					$return_value='<div class="notice notice-success is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+				}
 
-				} else {
+				if ($_GET['action']=='attest') {
+					$return_value='<div class="notice notice-warning is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+				}
 
-					//we are good. we have a good id, and we have permissions...
-
-					if ($_GET['action']=='edit') {
-						$return_value='<div class="notice notice-success is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
-					}
-
-					if ($_GET['action']=='delete') {
-						$return_value='<div class="notice notice-warning is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
-					}
-
+				if ($_GET['action']=='delete') {
+					$return_value='<div class="notice notice-error is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
 				}
 
 			}
@@ -175,6 +177,8 @@ function gmuw_fs_index_file_table($posts){
 			if ($post->post_author == get_current_user_id() || current_user_can('manage_options') ) {
 				//edit button
 				$return_value.='<a class="button button-primary" href="admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'">edit</a> ';
+				//attest button
+				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'">attest</a> ';
 				//delete button
 				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=delete&mypostid='.$post->ID.'" onclick="return confirm(\'Are you sure you want to delete this file?\')">delete</a> ';
 			}

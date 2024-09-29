@@ -15,20 +15,19 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
   global $wp_meta_boxes;
 
    /* most recent files */
-  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Most Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal");
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal");
 
    /* most recent documents */
-  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_docs", "Most Recent Document Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("documents"));
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_docs", "Recent Document Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("documents"));
 
    /* most recent images */
-  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_images", "Most Recent Image Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("images"));
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_images", "Recent Image Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("images"));
 
    /* most recent pdfs */
-  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_pdfs", "Most Recent PDF Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("pdfs"));
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_pdfs", "Recent PDF Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("pdfs"));
 
    /* most recent your files */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_yours", "Your Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("yours"));
-
 
 }
 

@@ -9,3 +9,18 @@
   table.data_table img.icon {
     width:2em;
   }
+
+/* style wp dashboard meta box for the big links */
+#gmuw_fs_custom_dashboard_meta_box_upload p a,
+#gmuw_fs_custom_dashboard_meta_box_index p a {
+  display:block;
+  width: 100%;
+  min-height: 6em;
+  line-height:5.5em;
+  text-align: center;
+  font-size:2em;
+}
+#gmuw_fs_custom_dashboard_meta_box_upload p a:hover,
+#gmuw_fs_custom_dashboard_meta_box_index p a:hover {
+  background-color:lightblue;
+}

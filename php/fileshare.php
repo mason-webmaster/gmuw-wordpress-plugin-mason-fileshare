@@ -69,8 +69,8 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 		$return_value.='<tbody>';
 		foreach ($posts as $post) {
 			$return_value.='<tr>';
-			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).' ('.$post->ID.')</a></td>';
-			$return_value.='<td>'.get_the_modified_date('', $post).'</td>';
+			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
 			$return_value.='</tr>';
 		}
 		$return_value.='</tbody>';

@@ -64,6 +64,7 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 		$return_value.='<tr>';
 		$return_value.='<td>File</td>';
 		$return_value.='<td>Modified</td>';
+		$return_value.='<td>&nbsp;</td>';
 		$return_value.='</tr>';
 		$return_value.='</thead>';
 		$return_value.='<tbody>';
@@ -71,6 +72,13 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 			$return_value.='<tr>';
 			$return_value.='<td>'.gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
+			//links
+			$return_value.='<td>';
+			//edit
+			$return_value.='<a class="admin-icon admin-edit" title="edit" href="/wp-admin/admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'&action=edit"></a>';
+			//open
+			$return_value.='<a class="admin-icon admin-external" title="open" href="'.wp_get_attachment_url($post->ID).'" target="_blank"></a>';
+			$return_value.='</td>';
 			$return_value.='</tr>';
 		}
 		$return_value.='</tbody>';

@@ -53,7 +53,7 @@ function gmuw_fs_custom_dashboard_meta_box_upload() {
 function gmuw_fs_custom_dashboard_meta_box_index() {
 
   //Output content
-  echo '<p><a href="/wp-admin/">File Index</a></p>';
+  echo '<p><a href="/wp-admin/admin.php?page=gmuw_fs_file_index">File Index</a></p>';
 
 }
 

@@ -81,3 +81,39 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 	return $return_value;
 
 }
+
+//function to display admin file index page datatables file table
+function gmuw_fs_index_file_table($posts){
+
+	//initialize return variable
+	$return_value='';
+
+	if ($posts) {
+		$return_value.='<table class="data_table">';
+		$return_value.='<thead>';
+		$return_value.='<tr>';
+		$return_value.='<td>File</td>';
+		$return_value.='<td>Post ID</td>';
+		$return_value.='<td>Mime type</td>';
+		$return_value.='<td>User</td>';
+		$return_value.='<td>Modified</td>';
+		$return_value.='</tr>';
+		$return_value.='</thead>';
+		$return_value.='<tbody>';
+		foreach ($posts as $post) {
+			$return_value.='<tr>';
+			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+			$return_value.='<td>'. $post->ID.'</td>';
+			$return_value.='<td>'. $post->post_mime_type.'</td>';
+			$return_value.='<td>'. get_user_by('id', $post->post_author)->user_login .'</td>';
+			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
+			$return_value.='</tr>';
+		}
+		$return_value.='</tbody>';
+		$return_value.='</table>';
+	}
+
+	//return value
+	return $return_value;
+
+}

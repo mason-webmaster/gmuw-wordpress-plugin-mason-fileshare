@@ -60,3 +60,23 @@ function gmuw_fs_add_sublevel_menu() {
 	);
 	
 }
+
+/**
+ * Adds file index admin menu item to Wordpress admin menu as a top-level item
+ */
+add_action('admin_menu', 'gmuj_add_admin_menu_fs_index');
+function gmuj_add_admin_menu_fs_index() {
+
+	// Add top admin page
+	add_menu_page(
+		'File Index',
+		'File Index',
+		'upload_files',
+		'gmuw_fs_file_index',
+		'gmuw_fs_file_index_page',
+		gmuj_mason_svg_icon(),
+		10
+	);
+
+
+}

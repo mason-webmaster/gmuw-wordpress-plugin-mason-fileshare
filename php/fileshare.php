@@ -39,6 +39,9 @@ function gmuw_fs_custom_dashboard_meta_box_files($post,$args) {
 		case 'pdfs':
 			$get_posts_args['post_mime_type']='application/pdf';
 			break;
+		case 'yours':
+			$get_posts_args['author']=get_current_user_id();
+			break;
 	}
 
 	//get attachments

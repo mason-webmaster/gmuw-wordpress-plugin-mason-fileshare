@@ -26,6 +26,10 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
    /* most recent pdfs */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_pdfs", "Most Recent PDF Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("pdfs"));
 
+   /* most recent your files */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_yours", "Your Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("yours"));
+
+
 }
 
 //add new user row action to reset a user's dashboard

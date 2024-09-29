@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
   //simple datatables
   jQuery('table.data_table.dashboardwidget').DataTable({
     paging: false,
-    dom: 'frtip',
+    dom: 't',
     order: [[1, 'desc']]
   });
 

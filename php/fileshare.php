@@ -88,6 +88,36 @@ function gmuw_fs_index_file_table($posts){
 	//initialize return variable
 	$return_value='';
 
+	//process any actions
+	if (isset($_GET['action'])) {
+
+		if (
+			$_GET['action']=='edit' ||
+			$_GET['action']=='delete'
+		) {
+
+			//get post id
+			$mypostid = isset($_GET['mypostid']) ? (int)$_GET['mypostid'] : 0;
+
+			//do we not have a good value?
+			if ($mypostid==0) {
+				$return_value='<div class="error notice is-dismissable "><p>Bad post ID. Unable to '.$_GET['action'].'.</p></div>';
+			} else {
+
+				if ($_GET['action']=='edit') {
+					$return_value='<div class="updated notice is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+				}
+
+				if ($_GET['action']=='delete') {
+					$return_value='<div class="updated notice is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+				}
+
+			}
+
+		}
+
+	}
+
 	if ($posts) {
 		$return_value.='<table class="data_table">';
 		$return_value.='<thead>';
@@ -97,6 +127,7 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='<td>Mime type</td>';
 		$return_value.='<td>User</td>';
 		$return_value.='<td>Modified</td>';
+		$return_value.='<td>Actions</td>';
 		$return_value.='</tr>';
 		$return_value.='</thead>';
 		$return_value.='<tbody>';
@@ -107,6 +138,10 @@ function gmuw_fs_index_file_table($posts){
 			$return_value.='<td>'. $post->post_mime_type.'</td>';
 			$return_value.='<td>'. get_user_by('id', $post->post_author)->user_login .'</td>';
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
+			$return_value.='<td>';
+			$return_value.='<a class="button button-primary" href="admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'">edit</a> ';
+			$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=delete&mypostid='.$post->ID.'" onclick="return confirm(\'Are you sure you want to delete this file?\')">delete</a> ';
+			$return_value.='</td>';
 			$return_value.='</tr>';
 		}
 		$return_value.='</tbody>';

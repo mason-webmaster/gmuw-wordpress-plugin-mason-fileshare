@@ -57,6 +57,9 @@ include('php/scripts.php');
 //styles
 include('php/styles.php');
 
+//icons
+include('php/icons.php');
+
 //register activation hook
 register_activation_hook(__FILE__, 'gmuw_fs_plugin_activate');
 

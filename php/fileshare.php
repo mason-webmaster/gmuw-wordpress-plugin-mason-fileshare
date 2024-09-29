@@ -69,7 +69,7 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 		$return_value.='<tbody>';
 		foreach ($posts as $post) {
 			$return_value.='<tr>';
-			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+			$return_value.='<td>'.gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
 			$return_value.='</tr>';
 		}
@@ -149,7 +149,10 @@ function gmuw_fs_index_file_table($posts){
 			//post ID
 			$return_value.='<td>'. $post->ID.'</td>';
 			//mime type
-			$return_value.='<td>'. $post->post_mime_type.'</td>';
+			$return_value.='<td>';
+			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' ';
+			$return_value.=$post->post_mime_type;
+			$return_value.='</td>';
 			//user
 			$return_value.='<td>';
 			$return_value.= $post->post_author == get_current_user_id() ? '<span class="gmuw_fs_highlight">' : '';

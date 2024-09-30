@@ -75,4 +75,5 @@ table.data_table .notice-error {
 table.dashboardwidget .notice {
   line-height:2em;
   margin-left:0.5em;
+  white-space: nowrap;
 }

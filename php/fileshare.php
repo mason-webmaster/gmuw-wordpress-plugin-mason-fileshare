@@ -331,8 +331,15 @@ function gmuw_fs_file_requires_attestation($post_id){
 	//calculate number of days since effective file attestation (86400 is the number of seconds in 1 day)
 	$days_since_last_attested_effective=floor((time()-$file_attestation_time_effective)/86400);
 
+	//get required file attestation interval from plugin settings or use a default fallback
+	if (isset(get_option('gmuw_fs_options')['gmuw_fs_file_attestation_interval_days'])) {
+		$required_attestation_interval=get_option('gmuw_fs_options')['gmuw_fs_file_attestation_interval_days'];
+	} else {
+		$required_attestation_interval=30;
+	}
+
 	//if days since effective attestation is greater than some threshold, indicate that attestation is required
-	if ($days_since_last_attested_effective>30) {
+	if ($days_since_last_attested_effective>$required_attestation_interval) {
 		$return_value=true;
 	}
 

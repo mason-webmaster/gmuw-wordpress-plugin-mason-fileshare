@@ -60,3 +60,19 @@
     font-family: "dashicons";
     content: "\f504";
 }
+
+.admin-attest:before {
+    font-family: "dashicons";
+    content: "\f147";
+}
+
+/* customize notices in datatables */
+/* red background color for errors */
+table.data_table .notice-error {
+  background-color: #fdd;
+}
+/* more space  on dashboard meta box tables*/
+table.dashboardwidget .notice {
+  line-height:2em;
+  margin-left:0.5em;
+}

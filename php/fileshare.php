@@ -73,7 +73,19 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 		$return_value.='<tbody>';
 		foreach ($posts as $post) {
 			$return_value.='<tr>';
-			$return_value.='<td>'.gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+			//file
+			$return_value.='<td>';
+			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a>';
+			//does this file require attestation?
+			if (gmuw_fs_file_requires_attestation($post->ID)) {
+				$return_value.=' <span class="notice notice-error">';
+				$return_value.='*requires attestation ';
+				//attest link
+				$return_value.='<a class="admin-icon admin-attest" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Do you attest that this file is still in active use and is still required to be hosted?\')"></a> ';
+				$return_value.='</span> ';
+			}
+			$return_value.='</td>';
+			//modified date
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
 			//links
 			$return_value.='<td>';

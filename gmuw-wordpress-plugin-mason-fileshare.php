@@ -60,6 +60,9 @@ include('php/styles.php');
 //icons
 include('php/icons.php');
 
+//email
+include('php/email.php');
+
 //register activation hook
 register_activation_hook(__FILE__, 'gmuw_fs_plugin_activate');
 

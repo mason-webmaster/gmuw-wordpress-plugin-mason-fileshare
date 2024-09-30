@@ -52,6 +52,36 @@ function gmuw_fs_register_settings() {
 		'gmuw_fs'
 	);
 
+	// Add field: turn on notification emails for file uploads
+	add_settings_field(
+		'gmuw_fs_email_notification_upload',
+		'Enable notification emails for file uploads?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_basic',
+		['id' => 'gmuw_fs_email_notification_upload', 'label' => '']
+	);
+
+	// Add field: turn on notification emails for file attestation
+	add_settings_field(
+		'gmuw_fs_email_notification_attest',
+		'Enable notification emails for file attestations?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_basic',
+		['id' => 'gmuw_fs_email_notification_attest', 'label' => '']
+	);
+
+	// Add field: turn on notification emails for file deletion
+	add_settings_field(
+		'gmuw_fs_email_notification_delete',
+		'Enable notification emails for file deletions?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_basic',
+		['id' => 'gmuw_fs_email_notification_delete', 'label' => '']
+	);
+
 	// Add field: file attestation interval in days
 	add_settings_field(
 		'gmuw_fs_file_attestation_interval_days',
@@ -134,6 +164,35 @@ function gmuw_fs_callback_field_text($args) {
 }
 
 /**
+ * Generates yes/no field for plugin settings options
+ */
+function gmuw_fs_callback_field_yesno($args) {
+
+    //Get array of options. If the specified option does not exist, get default options from a function
+    $options = get_option('gmuw_fs_options', gmuw_fs_options_default());
+
+    //Extract field id and label from arguments array
+    $id    = isset($args['id'])    ? $args['id']    : '';
+    $label = isset($args['label']) ? $args['label'] : '';
+
+    //Get setting value
+    $value = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
+
+    //Output field markup
+    echo '<select id="gmuw_fs_options_'. $id .'" name="gmuw_fs_options['. $id .']">';
+    echo '<option ';
+    echo $value ? 'selected ' : '';
+    echo 'value="1">Yes</option>';
+    echo '<option ';
+    echo !$value ? 'selected ' : '';
+    echo 'value="0">No</option>';
+    echo '</select>';
+    echo "<br />";
+    echo '<label for="gmuw_fs_options_'. $id .'">'. $label .'</label>';
+
+}
+
+/**
  * Generates user field for plugin settings option
  */
 function gmuw_fs_callback_field_user($args) {
@@ -165,6 +224,10 @@ function gmuw_fs_callback_field_user($args) {
 function gmuw_fs_options_default() {
 
     return array(
+        'gmuw_fs_email_notification_upload' => '1',
+        'gmuw_fs_email_notification_attest' => '1',
+        'gmuw_fs_email_notification_delete' => '1',
+        'gmuw_fs_file_attestation_interval_days' => '30',
         'template_user_id'   => '',
     );
 
@@ -174,6 +237,60 @@ function gmuw_fs_options_default() {
  * Validate plugin options
  */
 function gmuw_fs_callback_validate_options($input) {
+
+    // gmuw_fs_email_notification_upload
+    if (isset($input['gmuw_fs_email_notification_upload'])) {
+
+		//sanitize input
+        $input['gmuw_fs_email_notification_upload'] = sanitize_text_field($input['gmuw_fs_email_notification_upload']);
+
+        //if not blank...
+        if (!empty($input['gmuw_fs_email_notification_upload'])) {
+
+			//if it's not an integer, throw it out
+			if (!preg_match("/[01]/", $input['gmuw_fs_email_notification_upload'])) {
+				$input['gmuw_fs_email_notification_upload']='';
+			}
+
+        }
+
+    }
+
+    // gmuw_fs_email_notification_attest
+    if (isset($input['gmuw_fs_email_notification_attest'])) {
+
+		//sanitize input
+        $input['gmuw_fs_email_notification_attest'] = sanitize_text_field($input['gmuw_fs_email_notification_attest']);
+
+        //if not blank...
+        if (!empty($input['gmuw_fs_email_notification_attest'])) {
+
+			//if it's not an integer, throw it out
+			if (!preg_match("/[01]/", $input['gmuw_fs_email_notification_attest'])) {
+				$input['gmuw_fs_email_notification_attest']='';
+			}
+
+        }
+
+    }
+
+    // gmuw_fs_email_notification_delete
+    if (isset($input['gmuw_fs_email_notification_delete'])) {
+
+		//sanitize input
+        $input['gmuw_fs_email_notification_delete'] = sanitize_text_field($input['gmuw_fs_email_notification_delete']);
+
+        //if not blank...
+        if (!empty($input['gmuw_fs_email_notification_delete'])) {
+
+			//if it's not an integer, throw it out
+			if (!preg_match("/[01]/", $input['gmuw_fs_email_notification_delete'])) {
+				$input['gmuw_fs_email_notification_delete']='';
+			}
+
+        }
+
+    }
 
     // gmuw_fs_file_attestation_interval_days
     if (isset($input['gmuw_fs_file_attestation_interval_days'])) {

@@ -149,13 +149,26 @@ function gmuw_fs_index_file_table($posts){
 						)
 					);
 
+					//trigger notification email
+					if (get_option('gmuw_fs_options')['gmuw_fs_email_notification_attest']==1) {
+						gmuw_fs_email_notification($_GET['action'],$mypostid);
+					}
+
 					//output
 					$return_value='<div class="notice notice-success is-dismissable"><p>'.get_user_by('id',get_current_user_id())->user_login.' attested for the file <a href="'.wp_get_attachment_url($mypostid).'" target="_blank">'.basename(get_attached_file($mypostid)).'</a> ('.$mypostid.').</p></div>';
 
 				}
 
 				if ($_GET['action']=='delete') {
+
+					//trigger notification email
+					if (get_option('gmuw_fs_options')['gmuw_fs_email_notification_delete']==1) {
+						gmuw_fs_email_notification($_GET['action'],$mypostid);
+					}
+
+					//output
 					$return_value='<div class="notice notice-error is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+
 				}
 
 			}

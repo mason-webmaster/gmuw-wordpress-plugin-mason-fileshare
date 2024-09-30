@@ -138,7 +138,7 @@ function gmuw_fs_index_file_table($posts){
 					);
 
 					//output
-					$return_value='<div class="notice notice-success is-dismissable "><p>'.get_user_by('id',get_current_user_id())->user_login.' attested for this file ('.$mypostid.').</p></div>';
+					$return_value='<div class="notice notice-success is-dismissable"><p>'.get_user_by('id',get_current_user_id())->user_login.' attested for the file <a href="'.wp_get_attachment_url($mypostid).'" target="_blank">'.basename(get_attached_file($mypostid)).'</a> ('.$mypostid.').</p></div>';
 
 				}
 
@@ -209,7 +209,7 @@ function gmuw_fs_index_file_table($posts){
 				//edit button
 				$return_value.='<a class="button button-primary" href="admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'">edit</a> ';
 				//attest button
-				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'">attest</a> ';
+				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Do you attest that this file is still in active use and is still required to be hosted?\')">attest</a> ';
 				//delete button
 				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=delete&mypostid='.$post->ID.'" onclick="return confirm(\'Are you sure you want to delete this file?\')">delete</a> ';
 			}

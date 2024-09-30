@@ -52,6 +52,16 @@ function gmuw_fs_register_settings() {
 		'gmuw_fs'
 	);
 
+	// Add field: file attestation interval in days
+	add_settings_field(
+		'gmuw_fs_file_attestation_interval_days',
+		'Required File Attestation Interval (Days)',
+		'gmuw_fs_callback_field_text',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_basic',
+		['id' => 'gmuw_fs_file_attestation_interval_days', 'label' => 'required interval in days between file attestations']
+	);
+
 	// Add field: template user id
 	add_settings_field(
 		'template_user_id',
@@ -164,7 +174,19 @@ function gmuw_fs_options_default() {
  * Validate plugin options
  */
 function gmuw_fs_callback_validate_options($input) {
-    
+
+    // gmuw_fs_file_attestation_interval_days
+    if (isset($input['gmuw_fs_file_attestation_interval_days'])) {
+        //is it an integer value?
+        if ($input['gmuw_fs_file_attestation_interval_days'] == strval((int)$input['gmuw_fs_file_attestation_interval_days']) ) {
+			//store it (casting to int for best-practice)
+			$input['gmuw_fs_file_attestation_interval_days'] = (int)$input['gmuw_fs_file_attestation_interval_days'];
+        } else {
+			//if it's a bad value (a non-integer) store a default of 30 days
+			$input['gmuw_fs_file_attestation_interval_days'] = 30;
+        }
+    }
+
     // template_user_id
     if (isset($input['template_user_id'])) {
         $input['template_user_id'] = sanitize_text_field($input['template_user_id']);

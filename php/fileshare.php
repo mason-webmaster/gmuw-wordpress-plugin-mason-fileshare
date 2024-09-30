@@ -195,9 +195,12 @@ function gmuw_fs_index_file_table($posts){
 				$return_value.=' ('.gmuw_fs_days_since_file_attestation($post->ID).' day(s))';
 				$return_value.='</span>';
 				$return_value.='<br />by ';
-				$return_value.=get_user_by('id',$file_attestation[0])->user_login;
+				$return_value.=get_user_by('id',$file_attestation[0])->user_login . ' ';
 
 			}
+			//does this file require attestation?
+			$return_value.=gmuw_fs_file_requires_attestation($post->ID) ? '<span class="notice notice-error">*requires attestation</span>' : '';
+
 			$return_value.='</td>';
 			//actions
 			$return_value.='<td>';
@@ -270,5 +273,56 @@ function gmuw_fs_get_file_attestation_color($post_id){
 
 	//return value
 	return $return_value;
+
+}
+
+function gmuw_fs_file_attestation_time_effective($post_id){
+
+	//get file attestation
+	$file_attestation=get_post_meta($post_id,'gmuw_fs_file_attestation', true);
+
+	//is the value an array?
+	if (is_array($file_attestation) && sizeof($file_attestation)>=2 ) {
+
+		//get file attestation timestamp
+		$file_attestation_time=$file_attestation[1];
+
+		//do we have a good timestamp (an integer)?
+		if (ctype_digit(strval($file_attestation_time))) {
+			//return value
+			return $file_attestation_time;
+		}
+
+	}
+
+	//if we're still here, we didn't get a file attestation time, so use the post created timestamp
+	$post_created_time=get_post_timestamp($post_id);
+
+	//return value
+	return $post_created_time;
+
+}
+
+//function to determine whether file requires attestation
+function gmuw_fs_file_requires_attestation($post_id){
+
+
+	//initialize return variable
+	$return_value=false;
+
+	//get effective file attestation
+	$file_attestation_time_effective=gmuw_fs_file_attestation_time_effective($post_id);
+
+	//calculate number of days since effective file attestation (86400 is the number of seconds in 1 day)
+	$days_since_last_attested_effective=floor((time()-$file_attestation_time_effective)/86400);
+
+	//if days since effective attestation is greater than some threshold, indicate that attestation is required
+	if ($days_since_last_attested_effective>30) {
+		$return_value=true;
+	}
+
+	//return value
+	return $return_value;
+
 
 }

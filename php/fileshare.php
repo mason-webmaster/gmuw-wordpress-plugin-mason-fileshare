@@ -126,7 +126,20 @@ function gmuw_fs_index_file_table($posts){
 				}
 
 				if ($_GET['action']=='attest') {
-					$return_value='<div class="notice notice-warning is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
+
+					//perform attestation
+					update_post_meta(
+						$mypostid,
+						'gmuw_fs_file_attestation',
+						array(
+							get_current_user_id(),
+							time()-14400, //minus the number of seconds in 4 hours to account for time zone difference
+						)
+					);
+
+					//output
+					$return_value='<div class="notice notice-success is-dismissable "><p>'.get_user_by('id',get_current_user_id())->user_login.' attested for this file ('.$mypostid.').</p></div>';
+
 				}
 
 				if ($_GET['action']=='delete') {
@@ -148,6 +161,7 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='<td>Mime type</td>';
 		$return_value.='<td>User</td>';
 		$return_value.='<td>Modified</td>';
+		$return_value.='<td>Attested</td>';
 		$return_value.='<td>Actions</td>';
 		$return_value.='</tr>';
 		$return_value.='</thead>';
@@ -171,6 +185,20 @@ function gmuw_fs_index_file_table($posts){
 			$return_value.='</td>';
 			//date modified
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
+			//date attested
+			$return_value.='<td>';
+			$file_attestation=get_post_meta($post->ID,'gmuw_fs_file_attestation', true);
+			if (is_array($file_attestation)) {
+
+				$return_value.='<span style="color:'.gmuw_fs_get_file_attestation_color($post->ID).'">';
+				$return_value.=date("Y-m-d H:i:s", $file_attestation[1]);
+				$return_value.=' ('.gmuw_fs_days_since_file_attestation($post->ID).' day(s))';
+				$return_value.='</span>';
+				$return_value.='<br />by ';
+				$return_value.=get_user_by('id',$file_attestation[0])->user_login;
+
+			}
+			$return_value.='</td>';
 			//actions
 			$return_value.='<td>';
 			//does this file belong to the current user?
@@ -188,6 +216,57 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='</tbody>';
 		$return_value.='</table>';
 	}
+
+	//return value
+	return $return_value;
+
+}
+
+function gmuw_fs_days_since_file_attestation($post_id){
+
+	//initialize return variable
+	$return_value='';
+
+	//get file attestation
+	$file_attestation=get_post_meta($post_id,'gmuw_fs_file_attestation', true);
+
+	//get file attestation timestamp
+	$file_attestation_time=$file_attestation[1];
+
+	//is the timestamp anything other than an integer?
+	if (!ctype_digit(strval($file_attestation_time))) { return $return_value; }
+
+	//calculate number of days since last attested (86400 is the number of seconds in 1 day)
+	$days_since_last_attested=floor((time()-$file_attestation_time)/86400);
+
+	//set return value
+	$return_value=$days_since_last_attested;
+
+	//return value
+	return $return_value;
+
+}
+
+function gmuw_fs_get_file_attestation_color($post_id){
+
+	//initialize return variable
+	$return_value='#000000';
+
+	//get number of days since last attested
+	$days_since_last_attested=gmuw_fs_days_since_file_attestation($post_id);
+
+	//calculate color based on days last attested
+	//if the number of days is greater than 255, just stop at 255
+	$days_since_last_attested_for_color_value = $days_since_last_attested<=255 ? $days_since_last_attested : 255;
+
+	//convert number of days to hexamecimal equivalent
+	$red_hex_color_value=dechex($days_since_last_attested_for_color_value);
+
+	//assemble hex color value
+	$color_value='#'.$red_hex_color_value.'0000';
+
+	//set return value
+	$return_value=$color_value;
 
 	//return value
 	return $return_value;

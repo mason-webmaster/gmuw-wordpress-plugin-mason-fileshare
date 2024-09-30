@@ -52,36 +52,6 @@ function gmuw_fs_register_settings() {
 		'gmuw_fs'
 	);
 
-	// Add field: turn on notification emails for file uploads
-	add_settings_field(
-		'gmuw_fs_email_notification_upload',
-		'Enable notification emails for file uploads?',
-		'gmuw_fs_callback_field_yesno',
-		'gmuw_fs',
-		'gmuw_fs_section_settings_basic',
-		['id' => 'gmuw_fs_email_notification_upload', 'label' => '']
-	);
-
-	// Add field: turn on notification emails for file attestation
-	add_settings_field(
-		'gmuw_fs_email_notification_attest',
-		'Enable notification emails for file attestations?',
-		'gmuw_fs_callback_field_yesno',
-		'gmuw_fs',
-		'gmuw_fs_section_settings_basic',
-		['id' => 'gmuw_fs_email_notification_attest', 'label' => '']
-	);
-
-	// Add field: turn on notification emails for file deletion
-	add_settings_field(
-		'gmuw_fs_email_notification_delete',
-		'Enable notification emails for file deletions?',
-		'gmuw_fs_callback_field_yesno',
-		'gmuw_fs',
-		'gmuw_fs_section_settings_basic',
-		['id' => 'gmuw_fs_email_notification_delete', 'label' => '']
-	);
-
 	// Add field: file attestation interval in days
 	add_settings_field(
 		'gmuw_fs_file_attestation_interval_days',
@@ -92,13 +62,59 @@ function gmuw_fs_register_settings() {
 		['id' => 'gmuw_fs_file_attestation_interval_days', 'label' => 'required interval in days between file attestations']
 	);
 
+	// Add section: email settings
+	add_settings_section(
+		'gmuw_fs_section_settings_email',
+		'Email Settings',
+		'gmuw_fs_callback_section_settings_email',
+		'gmuw_fs'
+	);
+
+	// Add field: turn on notification emails for file uploads
+	add_settings_field(
+		'gmuw_fs_email_notification_upload',
+		'Send email notification on file upload?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_email',
+		['id' => 'gmuw_fs_email_notification_upload', 'label' => '']
+	);
+
+	// Add field: turn on notification emails for file attestation
+	add_settings_field(
+		'gmuw_fs_email_notification_attest',
+		'Send email notification on file attestation?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_email',
+		['id' => 'gmuw_fs_email_notification_attest', 'label' => '']
+	);
+
+	// Add field: turn on notification emails for file deletion
+	add_settings_field(
+		'gmuw_fs_email_notification_delete',
+		'Send email notification on file deletion?',
+		'gmuw_fs_callback_field_yesno',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_email',
+		['id' => 'gmuw_fs_email_notification_delete', 'label' => '']
+	);
+
+	// Add section: interface settings
+	add_settings_section(
+		'gmuw_fs_section_settings_interface',
+		'Interface Settings',
+		'gmuw_fs_callback_section_settings_interface',
+		'gmuw_fs'
+	);
+
 	// Add field: template user id
 	add_settings_field(
 		'template_user_id',
 		'Template User',
 		'gmuw_fs_callback_field_user',
 		'gmuw_fs',
-		'gmuw_fs_section_settings_basic',
+		'gmuw_fs_section_settings_interface',
 		['id' => 'template_user_id', 'label' => 'template user']
 	);
 
@@ -113,7 +129,7 @@ function gmuw_fs_plugin_settings_form() {
     if (!current_user_can('manage_options')) return;
 
     // heading
-    echo "<h2>Plugin settings</h2>";
+    echo "<h2>Plugin Settings</h2>";
 
     // Begin form
     echo "<form action='options.php' method='post'>";
@@ -137,7 +153,25 @@ function gmuw_fs_plugin_settings_form() {
  */
 function gmuw_fs_callback_section_settings_basic() {
 
-    echo '<p>Basic settings.</p>';
+    //echo '<p>Basic settings.</p>';
+
+}
+
+/**
+ * Generates content for email settings section
+ */
+function gmuw_fs_callback_section_settings_email() {
+
+    //echo '<p>Email settings.</p>';
+
+}
+
+/**
+ * Generates content for interface settings section
+ */
+function gmuw_fs_callback_section_settings_interface() {
+
+    //echo '<p>Interface settings.</p>';
 
 }
 

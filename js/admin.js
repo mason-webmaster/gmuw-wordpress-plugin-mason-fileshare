@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
   jQuery('table.data_table.dashboardwidget').DataTable({
     paging: false,
     dom: 't',
-    order: [[1, 'desc']]
+    order: [] //no initial sort
   });
 
 });

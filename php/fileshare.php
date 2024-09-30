@@ -42,6 +42,9 @@ function gmuw_fs_custom_dashboard_meta_box_files($post,$args) {
 		case 'yours':
 			$get_posts_args['author']=get_current_user_id();
 			break;
+		case 'oldest':
+			$get_posts_args['order']='ASC';
+			break;
 	}
 
 	//get attachments

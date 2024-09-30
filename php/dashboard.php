@@ -23,6 +23,9 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
    /* most recent files */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent", "Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal");
 
+   /* oldest files */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_oldest", "Oldest Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("oldest"));
+
    /* most recent documents */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_docs", "Recent Document Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("documents"));
 

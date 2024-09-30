@@ -89,10 +89,12 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
 			//links
 			$return_value.='<td>';
-			//edit
-			$return_value.='<a class="admin-icon admin-edit" title="edit" href="/wp-admin/admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'&action=edit"></a>';
-			//open
-			$return_value.='<a class="admin-icon admin-external" title="open" href="'.wp_get_attachment_url($post->ID).'" target="_blank"></a>';
+			//edit link, if the user can edit this post
+			if ($post->post_author == get_current_user_id() || current_user_can('manage_options') ) {
+				$return_value.='<a class="admin-icon admin-edit" title="edit" href="/wp-admin/post.php?post='.$post->ID.'&action=edit"></a>';
+			}
+			//open link
+			//$return_value.='<a class="admin-icon admin-external" title="open" href="'.wp_get_attachment_url($post->ID).'" target="_blank"></a>';
 			$return_value.='</td>';
 			$return_value.='</tr>';
 		}
@@ -114,7 +116,6 @@ function gmuw_fs_index_file_table($posts){
 	//process any actions
 	if ( isset($_GET['action']) &&
 		in_array($_GET['action'], array(
-		'edit',
 		'attest',
 		'delete'
 	)) ) {
@@ -135,10 +136,6 @@ function gmuw_fs_index_file_table($posts){
 			} else {
 
 				//we are good. we have a good id, and we have permissions...
-
-				if ($_GET['action']=='edit') {
-					$return_value='<div class="notice notice-success is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
-				}
 
 				if ($_GET['action']=='attest') {
 
@@ -222,7 +219,7 @@ function gmuw_fs_index_file_table($posts){
 			//does this file belong to the current user?
 			if ($post->post_author == get_current_user_id() || current_user_can('manage_options') ) {
 				//edit button
-				$return_value.='<a class="button button-primary" href="admin.php?page=gmuw_fs_file_index&action=edit&mypostid='.$post->ID.'">edit</a> ';
+				$return_value.='<a class="button button-primary" href="/wp-admin/post.php?post='.$post->ID.'&action=edit">edit</a> ';
 				//attest button
 				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Do you attest that this file is still in active use and is still required to be hosted?\')">attest</a> ';
 				//delete button

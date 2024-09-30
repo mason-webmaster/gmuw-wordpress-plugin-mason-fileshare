@@ -5,7 +5,7 @@
  */
 
 
-//display most recent uploaded files
+//display custom dashboard meta box with a table of files
 function gmuw_fs_custom_dashboard_meta_box_files($post,$args) {
 
 	//get mode from arguments

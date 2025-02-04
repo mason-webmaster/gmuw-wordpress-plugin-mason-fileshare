@@ -87,6 +87,12 @@ body.post-type-attachment.upload-php .attachment-details .attachment-info .setti
   display:none;
 }
 
+/* hide link to attachment page on media library attachment details panel - attachment pages are disabled */
+body.post-type-attachment.upload-php .attachment-details .attachment-info .actions .view-attachment, 
+body.post-type-attachment.upload-php .attachment-details .attachment-info .actions .view-attachment + span.links-separator {
+  display: none;
+}
+
 /* hide fields on post edit page for attachments to simplify interface */
 /* hide caption field - this site isn't intended to present images, so no need for captions */
 body.post-type-attachment .wp_attachment_details.edit-form-section p:has(textarea#attachment_caption) {

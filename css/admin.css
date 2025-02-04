@@ -80,3 +80,9 @@ table.dashboardwidget .notice {
   margin-left:0.5em;
   white-space: nowrap;
 }
+
+/* hide fields on media library attachment details panel to simplify interface */
+/* hide caption field - this site isn't intended to present images, so no need for captions */
+body.post-type-attachment.upload-php .attachment-details .attachment-info .setting[data-setting="caption"] {
+  display:none;
+}

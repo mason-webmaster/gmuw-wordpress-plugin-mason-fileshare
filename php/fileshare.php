@@ -100,7 +100,7 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 			$return_value.='<tr>';
 			//file
 			$return_value.='<td>';
-			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a>';
+			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' '.'<a href="'.wp_get_attachment_url($post->ID).'" target="_blank" title="'.$post->post_content.'">'.get_the_title($post).'</a>';
 			//does this file require attestation?
 			if (gmuw_fs_file_requires_attestation($post->ID)) {
 				$return_value.=' <span class="notice notice-error">';

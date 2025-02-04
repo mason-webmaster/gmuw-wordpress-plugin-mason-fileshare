@@ -86,3 +86,9 @@ table.dashboardwidget .notice {
 body.post-type-attachment.upload-php .attachment-details .attachment-info .setting[data-setting="caption"] {
   display:none;
 }
+
+/* hide fields on post edit page for attachments to simplify interface */
+/* hide caption field - this site isn't intended to present images, so no need for captions */
+body.post-type-attachment .wp_attachment_details.edit-form-section p:has(textarea#attachment_caption) {
+  display:none;
+}

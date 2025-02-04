@@ -1,0 +1,82 @@
+/* General */
+  /* jQuery toggle container support */
+  .toggleContainerTrigger {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+  /* DataTables support */
+  table.dataTable {
+    width: 100% !important;
+  }
+  table.data_table img.icon {
+    width:2em;
+  }
+
+/* dashboard widgets */
+/* give svgs better alignment in widget tables */
+.dashboardwidget td svg {
+  vertical-align:top;
+}
+
+/* style wp dashboard meta box for the big links */
+#gmuw_fs_custom_dashboard_meta_box_upload p a,
+#gmuw_fs_custom_dashboard_meta_box_index p a {
+  display:block;
+  width: 100%;
+  min-height: 6em;
+  line-height:5.5em;
+  text-align: center;
+  font-size:2em;
+}
+#gmuw_fs_custom_dashboard_meta_box_upload p a:hover,
+#gmuw_fs_custom_dashboard_meta_box_index p a:hover {
+  background-color:lightblue;
+}
+
+.gmuw_fs_highlight {
+  background-color:#46B450;
+}
+
+/* dashicons as admin icons */
+.admin-icon {
+    font-size: 1.25rem;
+    text-decoration:none;
+    vertical-align: middle;
+}
+
+.admin-icon:before {
+    font-family: "dashicons";
+}
+
+.admin-view:before {
+    font-family: "dashicons";
+    content: "\f177";
+}
+
+.admin-edit:before {
+    font-family: "dashicons";
+    content: "\f464";
+}
+
+.admin-external:before {
+    font-family: "dashicons";
+    content: "\f504";
+}
+
+.admin-attest:before {
+    font-family: "dashicons";
+    content: "\f147";
+}
+
+/* customize notices in datatables */
+/* red background color for errors */
+table.data_table .notice-error {
+  background-color: #fdd;
+}
+/* more space  on dashboard meta box tables*/
+table.dashboardwidget .notice {
+  line-height:2em;
+  margin-left:0.5em;
+  white-space: nowrap;
+}

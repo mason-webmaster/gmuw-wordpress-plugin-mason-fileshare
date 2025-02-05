@@ -204,6 +204,7 @@ function gmuw_fs_index_file_table($posts){
 	}
 
 	if ($posts) {
+
 		$return_value.='<table class="data_table">';
 		$return_value.='<thead>';
 		$return_value.='<tr>';
@@ -216,23 +217,33 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='</tr>';
 		$return_value.='</thead>';
 		$return_value.='<tbody>';
+
 		foreach ($posts as $post) {
-			$return_value.='<tr>';
+
+			//set class for table row element based on whether the file belongs to the current user
+			if ($post->post_author == get_current_user_id()) {
+				$return_value.='<tr class="gmuw_fs_highlight">';
+			} else {
+				$return_value.='<tr>';
+			}
+
 			//title/link
 			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+
 			//mime type
 			$return_value.='<td>';
 			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' ';
 			$return_value.=$post->post_mime_type;
 			$return_value.='</td>';
+
 			//user
 			$return_value.='<td>';
-			$return_value.= $post->post_author == get_current_user_id() ? '<span class="gmuw_fs_highlight">' : '';
 			$return_value.=get_user_by('id', $post->post_author)->user_login;
-			$return_value.= $post->post_author == get_current_user_id() ? '</span>' : '';
 			$return_value.='</td>';
+
 			//date modified
 			$return_value.='<td>'.get_the_modified_date('Y-m-d', $post).'</td>';
+
 			//date attested
 			$return_value.='<td>';
 			$file_attestation=get_post_meta($post->ID,'gmuw_fs_file_attestation', true);
@@ -248,11 +259,11 @@ function gmuw_fs_index_file_table($posts){
 			}
 			//does this file require attestation?
 			$return_value.=gmuw_fs_file_requires_attestation($post->ID) ? '<span class="notice notice-error">*requires attestation</span>' : '';
-
 			$return_value.='</td>';
+
 			//actions
 			$return_value.='<td>';
-			//does this file belong to the current user?
+			//does this file belong to the current user, or is the current user an admin?
 			if ($post->post_author == get_current_user_id() || current_user_can('manage_options') ) {
 				//edit button
 				$return_value.='<a class="button button-primary" href="/wp-admin/post.php?post='.$post->ID.'&action=edit">edit</a> ';
@@ -263,10 +274,13 @@ function gmuw_fs_index_file_table($posts){
 				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=delete&mypostid='.$post->ID.'" onclick="return confirm(\'Are you sure you want to delete this file?\')">delete</a> ';
 			}
 			$return_value.='</td>';
+
 			$return_value.='</tr>';
 		}
+
 		$return_value.='</tbody>';
 		$return_value.='</table>';
+
 	}
 
 	//return value

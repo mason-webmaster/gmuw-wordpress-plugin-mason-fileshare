@@ -34,8 +34,14 @@
   background-color:lightblue;
 }
 
+/* highlight class */
 .gmuw_fs_highlight {
-  background-color:#46B450;
+  background-color:#efe;
+}
+
+/* highlight class when used in a data table, to override datatable style */
+.dataTables_wrapper .gmuw_fs_highlight {
+  background-color:#efe !important;
 }
 
 /* dashicons as admin icons */

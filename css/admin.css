@@ -81,6 +81,13 @@ table.dashboardwidget .notice {
   white-space: nowrap;
 }
 
+/* hide unneeded menu items */
+#adminmenu li#menu-comments,
+#adminmenu li#menu-posts-person,
+#adminmenu li#menu-posts-slideshow {
+  display:none;
+}
+
 /* hide fields on media library attachment details panel to simplify interface */
 /* hide caption field - this site isn't intended to present images, so no need for captions */
 body.post-type-attachment.upload-php .attachment-details .attachment-info .setting[data-setting="caption"] {

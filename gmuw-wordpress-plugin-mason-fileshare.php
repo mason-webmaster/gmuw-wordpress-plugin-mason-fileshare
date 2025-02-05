@@ -60,6 +60,9 @@ include('php/settings.php');
 //styles
 include('php/styles.php');
 
+//taxonomy
+include('php/taxonomy.php');
+
 //users
 include('php/users.php');
 

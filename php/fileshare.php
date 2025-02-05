@@ -208,7 +208,7 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='<thead>';
 		$return_value.='<tr>';
 		$return_value.='<td>File</td>';
-		$return_value.='<td>Mime type</td>';
+		$return_value.='<td>Type</td>';
 		$return_value.='<td>User</td>';
 		$return_value.='<td>Modified</td>';
 		$return_value.='<td>Attested</td>';

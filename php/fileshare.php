@@ -208,7 +208,6 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='<thead>';
 		$return_value.='<tr>';
 		$return_value.='<td>File</td>';
-		$return_value.='<td>Post ID</td>';
 		$return_value.='<td>Mime type</td>';
 		$return_value.='<td>User</td>';
 		$return_value.='<td>Modified</td>';
@@ -221,8 +220,6 @@ function gmuw_fs_index_file_table($posts){
 			$return_value.='<tr>';
 			//title/link
 			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
-			//post ID
-			$return_value.='<td>'. $post->ID.'</td>';
 			//mime type
 			$return_value.='<td>';
 			$return_value.=gmuw_fs_icon(gmuw_fs_mime_type_icon($post->post_mime_type)).' ';

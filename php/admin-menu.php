@@ -74,7 +74,7 @@ function gmuj_add_admin_menu_fs_index() {
 		'upload_files',
 		'gmuw_fs_file_index',
 		'gmuw_fs_file_index_page',
-		gmuj_mason_svg_icon(),
+		'dashicons-index-card',
 		10
 	);
 

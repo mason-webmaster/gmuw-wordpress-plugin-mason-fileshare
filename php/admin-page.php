@@ -61,6 +61,28 @@ function gmuw_fs_file_index_page(){
         'orderby'        => 'modified',
     );
 
+    //do we have a related website id to filter for?
+    if (isset($_GET['related_website_id']) && (int)$_GET['related_website_id']>0) {
+
+        //provide a 'back to view all' link
+        echo '<p>This table is only showing files associated with the website '.get_term_by('id', (int)$_GET['related_website_id'], 'related_website')->name.'. <a href="/wp-admin/admin.php?page=gmuw_fs_file_index">View files for all websites</a></p>';
+
+        //set up meta query arguments
+        $get_posts_meta_query_args = array(
+            'meta_query' => array(
+                array(
+                    'key' => 'attachment_related_website',
+                    'value' => (int)$_GET['related_website_id'],
+                    'compare' => '=',
+                )
+            )
+        );
+
+        //merge arrays
+        $get_posts_args=array_merge($get_posts_args,$get_posts_meta_query_args);
+
+    }
+
     //get attachments
     $attachments = get_posts($get_posts_args);
 

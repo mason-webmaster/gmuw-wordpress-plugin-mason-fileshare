@@ -209,6 +209,7 @@ function gmuw_fs_index_file_table($posts){
 		$return_value.='<thead>';
 		$return_value.='<tr>';
 		$return_value.='<td>File</td>';
+		$return_value.='<td>Related Website</td>';
 		$return_value.='<td>Type</td>';
 		$return_value.='<td>User</td>';
 		$return_value.='<td>Modified</td>';
@@ -229,6 +230,15 @@ function gmuw_fs_index_file_table($posts){
 
 			//title/link
 			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+
+			//related website
+			$return_value.='<td>';
+			if ($post->attachment_related_website){
+				$return_value.='<a href="/wp-admin/admin.php?page=gmuw_fs_file_index&related_website_id='.$post->attachment_related_website.'">';
+				$return_value.=get_term_by('id', $post->attachment_related_website, 'related_website')->name;
+				$return_value.='</a>';
+			}
+			$return_value.='</td>';
 
 			//mime type
 			$return_value.='<td>';

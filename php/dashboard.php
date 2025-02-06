@@ -46,7 +46,7 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
 function gmuw_fs_custom_dashboard_meta_box_upload() {
 
   //Output content
-  echo '<p><a href="/wp-admin/media-new.php">Upload file</a></p>';
+  echo '<p><a href="/wp-admin/media-new.php">Upload New File</a></p>';
 
 }
 

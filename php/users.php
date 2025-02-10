@@ -24,3 +24,53 @@ function gmuw_fs_login_redirect_subscribers( $url, $request, $user ) {
 	return $url;
 
 }
+
+/**
+ * Remove the color picker from the user edit page (but it is still available on the profile edit page)
+ */
+add_action( 'admin_head-user-edit.php', function(){ remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' ); });
+
+/**
+ * add custom css to the admin profile page to hide some fields
+ * https://wordpress.stackexchange.com/questions/94963/removing-website-field-from-the-contact-info
+ */
+add_action( 'admin_head-user-edit.php', 'gmuw_fs_admin_user_profile_screen_custom_css' );
+add_action( 'admin_head-profile.php',   'gmuw_fs_admin_user_profile_screen_custom_css' );
+function gmuw_fs_admin_user_profile_screen_custom_css() {
+    echo '<style>';
+    echo 'tr.user-rich-editing-wrap{ display: none; }';
+    echo 'tr.user-comment-shortcuts-wrap{ display: none; }';
+    echo 'tr.user-syntax-highlighting-wrap{ display: none; }';
+    echo 'tr.user-language-wrap{ display: none; }';
+    echo 'tr.user-admin-bar-front-wrap{ display: none; }';
+    echo 'tr.user-nickname-wrap{ display: none; }';
+    echo 'tr.user-description-wrap{ display: none; }';
+    echo 'tr.user-profile-picture{ display: none; }';
+    echo 'tr.user-url-wrap{ display: none; }';
+    echo 'tr.user-sessions-wrap{ display: none; }';
+    echo 'div#application-passwords-section{ display: none; }';
+    echo '</style>';
+}
+
+/**
+ * Remove elements from the admin profile page which would be hard to remove via CSS
+ * https://wordpress.stackexchange.com/questions/397816/wordpress-5-8-hide-or-remove-personal-fields-from-admin-profile-page
+ */
+
+// Remove fields from Admin profile page
+add_action( 'admin_head', 'gmuw_fs_profile_subject_start' );
+function gmuw_fs_profile_subject_start() {
+	ob_start( 'gmuw_fs_remove_personal_options' );
+}
+
+function gmuw_fs_remove_personal_options( $subject ) {
+    $subject = preg_replace('#<h2>'.__("Personal Options").'</h2>#s', '', $subject, 1); // Remove the "Personal Options" title
+    $subject = preg_replace('#<h2>'.__("About the user").'</h2>#s', '', $subject, 1); // Remove the "About the user" title
+    $subject = preg_replace('#<h2>'.__("About Yourself").'</h2>#s', '', $subject, 1); // Remove the "About Yourself" title
+    return $subject;
+}
+
+add_action( 'admin_footer', 'gmuw_fs_profile_subject_end' );
+function gmuw_fs_profile_subject_end() {
+	ob_end_flush();
+}

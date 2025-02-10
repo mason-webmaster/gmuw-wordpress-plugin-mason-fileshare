@@ -6,6 +6,20 @@
 
 
 /**
+ * Enqueue login page styles
+ */
+add_action('login_enqueue_scripts', 'gmuw_fs_login_stylesheet' );
+function gmuw_fs_login_stylesheet() {
+
+  // Enqueue login page stylesheet
+  wp_enqueue_style(
+    'gmuw_fs_style_login',
+    plugin_dir_url( __DIR__ ).'/css/login.css'
+  );
+
+}
+
+/**
  * Enqueue admin styles
  */
 add_action('admin_enqueue_scripts','gmuw_fs_enqueue_styles_admin');

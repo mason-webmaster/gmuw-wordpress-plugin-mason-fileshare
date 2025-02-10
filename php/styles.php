@@ -13,14 +13,14 @@ function gmuw_fs_enqueue_styles_admin() {
 
   // Enqueue datatables stylesheet
   wp_enqueue_style (
-    'gmuw_pf_style_admin_datatables', //stylesheet name
-    plugin_dir_url( __DIR__ ).'datatables/datatables.min.css' //path to stylesheet
+    'gmuw_fs_style_admin_datatables',
+    plugin_dir_url( __DIR__ ).'datatables/datatables.min.css'
   );
 
   // Enqueue the plugin admin stylesheets
   wp_enqueue_style (
-    'gmuw_pf_style_admin', //stylesheet name
-    plugin_dir_url( __DIR__ ).'/css/admin.css' //path to stylesheet
+    'gmuw_fs_style_admin',
+    plugin_dir_url( __DIR__ ).'/css/admin.css'
   );
 
 }

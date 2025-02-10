@@ -74,3 +74,64 @@ add_action( 'admin_footer', 'gmuw_fs_profile_subject_end' );
 function gmuw_fs_profile_subject_end() {
 	ob_end_flush();
 }
+
+/**
+ * Modifies columns in users admin list
+ */
+add_filter( 'manage_users_columns', 'gmuw_fs_set_columns_user' );
+function gmuw_fs_set_columns_user( $columns ) {
+
+    // unset the 'name' column
+    unset( $columns['name'] );
+
+    // unset the 'posts' column
+    unset( $columns['posts'] );
+
+    //add columns for our usermeta
+    $columns['user_websites'] = 'Upload';
+    $columns['user_websites_admin'] = 'Manage';
+
+    return $columns;
+
+}
+
+/**
+ * Populate additional column fields in users admin list
+ */
+add_filter( 'manage_users_custom_column', 'gmuw_fs_columns_user', 10, 3 );
+function gmuw_fs_columns_user( $val, $column_name, $user_id ) {
+
+    switch ($column_name) {
+        case 'user_websites':
+
+            //get user website permissions
+            $user_website_ids = get_field('user_websites','user_'.$user_id);
+
+            //if we don't have permissions, return
+            if (!$user_website_ids) { return $val; }
+
+            //loop through website permissions
+            foreach ($user_website_ids as $user_website_id) {
+              //display
+              $val.=get_term($user_website_id)->name.'<br />';
+            }
+            break;
+
+        case 'user_websites_admin':
+
+            //get user website permissions
+            $user_website_ids = get_field('user_websites_admin','user_'.$user_id);
+
+            //if we don't have permissions, return
+            if (!$user_website_ids) { return $val; }
+
+            //loop through website permissions
+            foreach ($user_website_ids as $user_website_id) {
+              //display
+              $val.=get_term($user_website_id)->name.'<br />';
+            }
+            break;
+    }
+
+    return $val;
+}

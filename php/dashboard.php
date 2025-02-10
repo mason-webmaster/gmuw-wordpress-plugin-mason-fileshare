@@ -14,6 +14,9 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
   // Declare global variables
   global $wp_meta_boxes;
 
+  /* Add 'permissions' meta box */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_permissions", "Permissions", "gmuw_fs_custom_dashboard_meta_box_permissions", "dashboard","normal");
+
   /* Add 'upload' meta box */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_upload", "Upload", "gmuw_fs_custom_dashboard_meta_box_upload", "dashboard","normal");
 
@@ -37,6 +40,65 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
 
    /* most recent your files */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_yours", "Your Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("yours"));
+
+}
+
+/**
+ * Provides content for the dashboard 'permissions' meta box
+ */
+function gmuw_fs_custom_dashboard_meta_box_permissions() {
+
+  echo '<p><strong>Upload Permissions</strong></p>';
+
+  //get user website permissions
+  $user_website_ids = get_field('user_websites','user_'.get_current_user_id());
+
+  //if the user has permissions
+  if ($user_website_ids) {
+
+    echo '<p>You have permssions to upload files for the following websites:</p>';
+
+    echo '<p>';
+
+    //loop through website permissions
+    foreach ($user_website_ids as $user_website_id) {
+      //display
+      echo get_term($user_website_id)->name.'<br />';
+    }
+
+    echo '<p>';
+
+  } else {
+
+    echo '<p>You do not have permssions to upload files for any websites.</p>';
+
+  }
+
+  echo '<p><strong>Admin Permissions</strong></p>';
+
+  //get user website permissions
+  $user_website_ids = get_field('user_websites_admin','user_'.get_current_user_id());
+
+  //if the user has permissions
+  if ($user_website_ids) {
+
+    echo '<p>You have permssions to manage files for the following websites:</p>';
+
+    echo '<p>';
+
+    //loop through website permissions
+    foreach ($user_website_ids as $user_website_id) {
+      //display
+      echo get_term($user_website_id)->name.'<br />';
+    }
+
+    echo '<p>';
+
+  } else {
+
+    echo '<p>You do not have permssions to manage files for any websites.</p>';
+
+  }
 
 }
 

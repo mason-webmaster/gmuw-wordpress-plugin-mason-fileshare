@@ -273,8 +273,8 @@ function gmuw_fs_index_file_table($posts){
 
 			//actions
 			$return_value.='<td>';
-			//does this file belong to the current user, or is the current user an admin?
-			if ($post->post_author == get_current_user_id() || current_user_can('manage_options') ) {
+			//can the current user manage this file?
+			if (gmuw_fs_can_user_edit_file(get_current_user_id(),$post->ID)) {
 				//edit button
 				$return_value.='<a class="button button-primary" href="/wp-admin/post.php?post='.$post->ID.'&action=edit">edit</a> ';
 				//$return_value.='<a class="button button-primary" href="/wp-admin/upload.php?item='.$post->ID.'">edit</a> ';
@@ -404,5 +404,24 @@ function gmuw_fs_file_requires_attestation($post_id){
 	//return value
 	return $return_value;
 
+
+}
+
+/* can user edit a particular file */
+function gmuw_fs_can_user_edit_file($user_id,$attachment_id) {
+
+	//is this user an admin? if so, yes
+	if (current_user_can('manage_options')) { return true; }
+
+	//is this user the posts author? if so, yes
+	if (get_post($attachment_id)->post_author == get_current_user_id()) { return true; }
+
+	//can this user manage files for the site this file belongs to?
+	//what site does this file belong to?
+	$related_website=get_post($attachment_id)->attachment_related_website;
+	//what sites can this user manage files for?
+	$user_website_ids = get_field('user_websites_admin','user_'.get_current_user_id());
+	//is the related website in the list of websites that this user can manage files for?
+	if (in_array($related_website,$user_website_ids)) { return true; }
 
 }

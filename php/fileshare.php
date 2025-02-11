@@ -421,7 +421,7 @@ function gmuw_fs_can_user_edit_file($user_id,$attachment_id) {
 	$related_website=get_post($attachment_id)->attachment_related_website;
 	//what sites can this user manage files for?
 	$user_website_ids = get_field('user_websites_admin','user_'.get_current_user_id());
-	//is the related website in the list of websites that this user can manage files for?
-	if (in_array($related_website,$user_website_ids)) { return true; }
+	//if we have any admin websites, is the related website in the list of websites that this user can manage files for?
+	if (is_array($user_website_ids) && in_array($related_website,$user_website_ids)) { return true; }
 
 }

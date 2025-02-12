@@ -56,14 +56,23 @@ function gmuw_fs_custom_dashboard_meta_box_permissions() {
   //if the user has permissions
   if ($user_website_ids) {
 
-    echo '<p>You have permssions to upload files for the following websites:</p>';
+    //handle updates to the users active website
+    if (isset($_GET['set_active_website']) && in_array($_GET['set_active_website'],$user_website_ids)) {
+      //update user meta
+      update_user_meta(get_current_user_id(),'user_website_active',$_GET['set_active_website']);
+      echo '<p><strong>Active website updated!</strong></p>';
+    }
+
+    echo '<p><strong>You are currently uploading files for: '.get_term(gmuw_fs_user_related_website_active(get_current_user_id()))->name.'</strong></p>';
+
+    echo '<p>You have permssions to upload files for the following websites. Please select one to change your current website.</p>';
 
     echo '<p>';
 
     //loop through website permissions
     foreach ($user_website_ids as $user_website_id) {
       //display
-      echo get_term($user_website_id)->name.'<br />';
+      echo '<a href="/wp-admin/index.php?set_active_website='.$user_website_id.'">'.get_term($user_website_id)->name.'</a><br />';
     }
 
     echo '<p>';

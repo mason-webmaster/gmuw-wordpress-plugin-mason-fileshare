@@ -425,3 +425,26 @@ function gmuw_fs_can_user_edit_file($user_id,$attachment_id) {
 	if (is_array($user_website_ids) && in_array($related_website,$user_website_ids)) { return true; }
 
 }
+
+/* function to determine the term ID for the "active" related website that will be assigned to new uploads */
+function gmuw_fs_user_related_website_active($user_id){
+
+	//if we have this usermeta already, return it
+	if (get_user_meta($user_id,'user_website_active',true)) { return get_user_meta($user_id,'user_website_active',true); }
+
+	//otherwise, if they have permissions, use the first id in their website permissions list user meta value
+	if (!empty(get_field('user_websites','user_'.get_current_user_id())[0])) { return get_field('user_websites','user_'.get_current_user_id())[0]; }
+
+	//otherwise, return false
+	return false;
+
+}
+
+/* add post meta to new attachment posts after upload */
+add_action('add_attachment', 'gmuw_fs_add_attachment_meta');
+function gmuw_fs_add_attachment_meta($attachment_ID) {
+
+    //add post meta for new attachment post
+    update_post_meta($attachment_ID, 'attachment_related_website', gmuw_fs_user_related_website_active(get_current_user_id()));
+
+}

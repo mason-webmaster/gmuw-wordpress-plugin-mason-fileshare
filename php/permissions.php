@@ -61,6 +61,17 @@ function gmuw_fs_allow_edit_posts_for_subscribers_for_attachments( $allcaps, $ca
 	//add the edit_posts capability
 	$allcaps['edit_posts']=1;
 
+	//also, check to see if this post is for a website that this user has manage permissions for
+	//what site does this file belong to?
+	$related_website=$mypost->attachment_related_website;
+	//what sites can this user manage files for?
+	$user_website_ids = get_field('user_websites_admin','user_'.$args[1]);
+	//if we have any admin websites, is the related website in the list of websites that this user can manage files for?
+	if (is_array($user_website_ids) && in_array($related_website,$user_website_ids)) {
+		//allow user to edit this post
+		$allcaps['edit_others_posts']=1;
+	}
+
 	//return capabilities
 	return $allcaps;
 

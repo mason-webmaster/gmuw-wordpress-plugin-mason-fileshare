@@ -261,7 +261,7 @@ function gmuw_fs_index_file_table($posts){
 
 				$return_value.='<span style="color:'.gmuw_fs_get_file_attestation_color($post->ID).'">';
 				$return_value.=date("Y-m-d H:i:s", $file_attestation[1]);
-				$return_value.=' ('.gmuw_fs_days_since_file_attestation($post->ID).' day(s))';
+				$return_value.=' ('.gmuw_fs_days_since_file_attestation($post->ID).' day'.(gmuw_fs_days_since_file_attestation($post->ID)==1 ? '' : 's').')';
 				$return_value.='</span>';
 				$return_value.='<br />by ';
 				$return_value.=get_user_by('id',$file_attestation[0])->user_login . ' ';

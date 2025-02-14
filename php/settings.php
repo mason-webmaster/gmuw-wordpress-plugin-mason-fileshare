@@ -70,6 +70,16 @@ function gmuw_fs_register_settings() {
 		'gmuw_fs'
 	);
 
+	// Add field: email addresses for notifications
+	add_settings_field(
+		'gmuw_fs_email_notification_addresses',
+		'Email address(es) for notification emails',
+		'gmuw_fs_callback_field_text',
+		'gmuw_fs',
+		'gmuw_fs_section_settings_email',
+		['id' => 'gmuw_fs_email_notification_addresses', 'label' => 'comma-separated, please']
+	);
+
 	// Add field: turn on notification emails for file uploads
 	add_settings_field(
 		'gmuw_fs_email_notification_upload',
@@ -283,6 +293,46 @@ function gmuw_fs_callback_validate_options($input) {
 			$input['gmuw_fs_file_attestation_interval_days'] = 30;
         }
     }
+
+	// gmuw_fs_email_notification_addresses
+	if (isset($input['gmuw_fs_email_notification_addresses'])) {
+
+		//strip out spaces
+		$input['gmuw_fs_email_notification_addresses']=str_replace(' ', '', $input['gmuw_fs_email_notification_addresses']);
+
+		//split into array with commas
+		$email_array=explode(',',$input['gmuw_fs_email_notification_addresses']);
+
+		//is is an array, with anything in it?
+		if (is_array($email_array) && count($email_array)>0) {
+
+			//yes we have emails
+			$have_emails=true;
+
+			//assume that they are all good emails, unless we disprove it
+			$all_emails_good=true;
+
+			//loop through array
+			foreach ($email_array as $email_address) {
+
+				//is this a valid email
+				if (!is_email($email_address)) {
+
+					//this data is not an email, so the field is no good
+					$all_emails_good=false;
+
+				}
+
+			}
+
+		}
+
+		//if anything was wrong, throw out the input
+		if (!$have_emails || !$all_emails_good) {
+			$input['gmuw_fs_email_notification_addresses']='';
+		}
+
+	}
 
     return $input;
     

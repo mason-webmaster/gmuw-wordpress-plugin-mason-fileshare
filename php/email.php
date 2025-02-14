@@ -5,6 +5,17 @@
  */
 
 
+//get notification email addresses
+function jmwp_fs_get_notification_email_address_array(){
+
+	//get data from plugin option
+	$email_array=explode(',',get_option('gmuw_fs_options')['gmuw_fs_email_notification_addresses']);
+
+	//return value
+	return $email_array;
+
+}
+
 //send notification emails for file actions
 function gmuw_fs_email_notification($action,$post_id){
 
@@ -22,7 +33,7 @@ function gmuw_fs_email_notification($action,$post_id){
 
 	//send notification email
 	wp_mail(
-		array('jmacario@gmu.edu'),
+		jmwp_fs_get_notification_email_address_array(),
 		$email_subject,
 		$email_body,
 	);

@@ -24,3 +24,22 @@ function gmuw_fs_enqueue_scripts_admin() {
   );
 
 }
+
+/**
+ * Enqueue custom upload page javascript
+ */
+add_action('admin_enqueue_scripts', function($hook_suffix){
+
+  // are we on the upload page?
+  if($hook_suffix == 'media-new.php') {
+
+    // enqueue the custom javascript
+    wp_enqueue_script(
+      'gmuw_fs_admin_upload_js', //script name
+      plugin_dir_url( __DIR__ ).'js/admin-upload.js', //path to script
+      array('jquery') //dependencies
+    );
+
+  }
+
+});

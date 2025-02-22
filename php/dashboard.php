@@ -50,11 +50,8 @@ function gmuw_fs_custom_dashboard_meta_box_permissions() {
 
   echo '<p><strong>Upload Permissions</strong></p>';
 
-  //get user website permissions
-  $user_website_ids = get_field('user_websites','user_'.get_current_user_id());
-
   //if the user has permissions
-  if ($user_website_ids) {
+  if (gmuw_fs_user_has_upload_permissions()) {
 
     //display user website upload permissions
     echo '<p>You have permssions to upload files for the following websites:</p>';
@@ -136,22 +133,29 @@ function gmuw_fs_admin_notice_user_active_website() {
 
     echo '<div class="notice notice-info">';
 
-    //handle updates to the users active website
-    gmuw_fs_update_user_working_website();
+    //does the user have any upload permissions?
+    if (gmuw_fs_user_has_upload_permissions()) {
 
-    //user current working website message
-    gmuw_fs_user_current_website_message();
+      //handle updates to the users active website
+      gmuw_fs_update_user_working_website();
 
-    //if user has more than one permission
-    if (gmuw_fs_user_has_more_than_one_website_upload_permission()) {
+      //user current working website message
+      gmuw_fs_user_current_website_message();
 
-      echo '<p>Switch website: ';
+      //if user has more than one permission
+      if (gmuw_fs_user_has_more_than_one_website_upload_permission()) {
 
-      //display links to update active website
-      gmuw_fs_update_user_update_working_website_links();
+        echo '<p>Switch website: ';
 
-      echo '</p>';
+        //display links to update active website
+        gmuw_fs_update_user_update_working_website_links();
 
+        echo '</p>';
+
+      }
+
+    } else {
+      echo '<p>You do not have permssions to upload files for any websites.</p>';
     }
 
     echo '</div>';
@@ -225,6 +229,17 @@ function gmuw_fs_user_has_more_than_one_website_upload_permission() {
 
   //if user has more than one permission
   if (preg_match("/^\d+,\d+/", implode(',',$user_website_ids))) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+//function to determine if a user has any upload permissions
+function gmuw_fs_user_has_upload_permissions() {
+
+  if (get_field('user_websites','user_'.get_current_user_id())) {
     return true;
   } else {
     return false;

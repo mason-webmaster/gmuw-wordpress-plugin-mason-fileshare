@@ -111,3 +111,13 @@ body.post-type-attachment.upload-php .attachment-details .attachment-info .actio
 body.post-type-attachment .wp_attachment_details.edit-form-section p:has(textarea#attachment_caption) {
   display:none;
 }
+
+/* user working website links */
+/* in admin notice */
+.notice .gmuw_fs_user_active_website_links a {
+  margin:0 1em;
+}
+/* in dashboard meta box */
+#gmuw_fs_custom_dashboard_meta_box_permissions .gmuw_fs_user_active_website_links a {
+  display:block;
+}

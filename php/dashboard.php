@@ -56,24 +56,13 @@ function gmuw_fs_custom_dashboard_meta_box_permissions() {
   //if the user has permissions
   if ($user_website_ids) {
 
-    //handle updates to the users active website
-    if (isset($_GET['set_active_website']) && in_array($_GET['set_active_website'],$user_website_ids)) {
-      //update user meta
-      update_user_meta(get_current_user_id(),'user_website_active',$_GET['set_active_website']);
-      echo '<p><strong>Active website updated!</strong></p>';
-    }
-
-    echo '<p><strong>You are currently uploading files for: '.get_term(gmuw_fs_user_related_website_active(get_current_user_id()))->name.'</strong></p>';
-
-    echo '<p>You have permssions to upload files for the following websites. Please select one to change your current website.</p>';
+    //display user website upload permissions
+    echo '<p>You have permssions to upload files for the following websites:</p>';
 
     echo '<p>';
 
-    //loop through website permissions
-    foreach ($user_website_ids as $user_website_id) {
-      //display
-      echo '<a href="/wp-admin/index.php?set_active_website='.$user_website_id.'">'.get_term($user_website_id)->name.'</a><br />';
-    }
+    //display links to update active website
+    gmuw_fs_update_user_update_working_website_links();
 
     echo '<p>';
 
@@ -128,5 +117,117 @@ function gmuw_fs_custom_dashboard_meta_box_index() {
 
   //Output content
   echo '<p><a href="/wp-admin/admin.php?page=gmuw_fs_file_index">File Index</a></p>';
+
+}
+
+
+/**
+ * Adds an admin notice indicating the user's current working website and providing the ability to change it
+ */
+add_action( 'admin_notices', 'gmuw_fs_admin_notice_user_active_website' );
+function gmuw_fs_admin_notice_user_active_website() {
+
+  //get globals
+  global $pagenow;
+
+  //only run this on the dashboard and upload pages
+  $admin_pages = [ 'index.php', 'media-new.php' ];
+  if (in_array($pagenow, $admin_pages)) {
+
+    echo '<div class="notice notice-info">';
+
+    //handle updates to the users active website
+    gmuw_fs_update_user_working_website();
+
+    //user current working website message
+    gmuw_fs_user_current_website_message();
+
+    //if user has more than one permission
+    if (gmuw_fs_user_has_more_than_one_website_upload_permission()) {
+
+      echo '<p>Switch website: ';
+
+      //display links to update active website
+      gmuw_fs_update_user_update_working_website_links();
+
+      echo '</p>';
+
+    }
+
+    echo '</div>';
+
+  }
+
+}
+
+//function to return current html markup representing working website message
+function gmuw_fs_user_current_website_message() {
+
+  echo '<p><strong>You are currently uploading files for: '.get_term(gmuw_fs_user_related_website_active(get_current_user_id()))->name.'</strong></p>';
+
+}
+
+//function to handle updates to the users active working website
+function gmuw_fs_update_user_working_website() {
+
+  //get user website permissions
+  $user_website_ids = get_field('user_websites','user_'.get_current_user_id());
+
+  //if the user has permissions
+  if ($user_website_ids) {
+
+    //if we have a parameter to update the active website, and if that value is in the list of websites the user has permissions for
+    if (isset($_GET['set_active_website']) && in_array($_GET['set_active_website'],$user_website_ids)) {
+
+      //update user meta
+      update_user_meta(get_current_user_id(),'user_website_active',$_GET['set_active_website']);
+
+      //echo '<p><strong>Active website updated!</strong></p>';
+
+    }
+
+  }
+
+}
+
+//function to provide links to update the users active working website
+function gmuw_fs_update_user_update_working_website_links() {
+
+  //get user website permissions
+  $user_website_ids = get_field('user_websites','user_'.get_current_user_id());
+
+  //if the user has permissions
+  if ($user_website_ids) {
+
+    //begin output
+    echo '<span class="gmuw_fs_user_active_website_links">';
+
+    //loop through website permissions
+    foreach ($user_website_ids as $user_website_id) {
+
+      //display link
+      echo '<a href="?set_active_website='.$user_website_id.'" title="update active website">'.get_term($user_website_id)->name.'</a>';
+
+    }
+
+    //finish output
+    echo '</span>';
+
+  }
+
+}
+
+//function to determine whether the user has more than one website upload permission
+function gmuw_fs_user_has_more_than_one_website_upload_permission() {
+
+  //get user website permissions
+  $user_website_ids = get_field('user_websites','user_'.get_current_user_id());
+
+  //if user has more than one permission
+  if (preg_match("/^\d+,\d+/", implode(',',$user_website_ids))) {
+    return true;
+  } else {
+    return false;
+  }
 
 }

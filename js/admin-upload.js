@@ -2,15 +2,32 @@ jQuery(document).ready(function(){
 
 	//alert('file loaded');
 
-	//disable upload buttons (regular upload form and the basic browser uploader)
-	jQuery('#plupload-browse-button, #async-upload, #html-upload').prop('disabled',true);
+	//hide upload form
+	jQuery('.media-upload-form').hide();
 
-	//get user to confirm in orer to re-enable the buttons
-	if (confirm('Do you promise to only upload good things?')) {
+	//add checkbox to show the upload form
+	jQuery('.media-upload-form').before(
+		'<h2>Confirm</h2>',
+		'<p><strong>Before uploading files, please confirm using the checkbox below.</strong></p>',
+		'<p>I promise to only upload files which meet the file hosting guidelines: <input type="checkbox" id="upload_certification" /></p>'
+	);
 
-		//re-enable buttons
-		jQuery('#plupload-browse-button, #async-upload, #html-upload').prop('disabled',false);
+    //handle upload checkbox confirmation
+    jQuery('#upload_certification').on('change',function(){
 
-	}
+		//if checkbox is checked
+        if (jQuery(this).is(':checked')) {
+
+			//show upload form
+			jQuery('.media-upload-form').show();
+
+        } else {
+
+			//hide upload form
+			jQuery('.media-upload-form').hide();
+
+        }
+
+    });
 
 });

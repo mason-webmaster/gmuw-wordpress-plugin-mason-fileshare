@@ -121,3 +121,15 @@ body.post-type-attachment .wp_attachment_details.edit-form-section p:has(textare
 #gmuw_fs_custom_dashboard_meta_box_permissions .gmuw_fs_user_active_website_links a {
   display:block;
 }
+
+/* enable media replace plugin integration */
+
+/* hide marketing stuff */
+.upsell-wrapper {
+  display:none;
+}
+
+/* hide media replace options completely */
+.media_page_enable-media-replace-enable-media-replace .emr_upload_form .option-flex-wrapper {
+  display:none;
+}

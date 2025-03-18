@@ -14,8 +14,8 @@ function gmuj_add_admin_menu_mason_fileshare() {
 
 	// Add top admin menu page
 	add_menu_page(
-		'Mason Fileshare',
-		'Mason Fileshare',
+		'Mason WebDocs Settings',
+		'Mason WebDocs',
 		'manage_options',
 		'gmuw_fs',
 		'gmuw_fs_plugin_page',
@@ -33,7 +33,7 @@ function gmuj_add_admin_menu_fs_index() {
 
 	// Add top admin page
 	add_menu_page(
-		'File Index',
+		'WebDocs File Index',
 		'File Index',
 		'upload_files',
 		'gmuw_fs_file_index',

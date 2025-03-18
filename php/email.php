@@ -21,7 +21,7 @@ function gmuw_fs_email_notification($action,$post_id){
 
 	//set email content
 	$email_content=array(
-		'Mason Fileshare update:',
+		'WebDocs Update:',
 		wp_get_current_user()->user_login,
 		$action,
 		wp_get_attachment_url($post_id)

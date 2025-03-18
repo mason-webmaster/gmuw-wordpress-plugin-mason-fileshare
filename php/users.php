@@ -10,13 +10,8 @@
 add_filter( 'login_redirect', 'gmuw_fs_login_redirect_mason_users', 10, 3 );
 function gmuw_fs_login_redirect_mason_users( $url, $request, $user ) {
 
-	//if user is a mason_user, redirect them to the WP dashboard (instead of their user profile page, which they would be by default)
-	if (
-		//$user &&
-		//is_object($user) &&
-		is_a($user, 'WP_User') &&
-		$user->has_cap('mason_user')
-	) {
+	//upon login, redirect users to the WP dashboard
+	if (is_a($user, 'WP_User')) {
 		$url = '/wp-admin/index.php';
 	}
 

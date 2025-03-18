@@ -13,14 +13,14 @@ add_action('admin_menu', 'gmuj_add_admin_menu_mason_fileshare');
 function gmuj_add_admin_menu_mason_fileshare() {
 
 	// Add top admin menu page
-	add_menu_page(
+	add_submenu_page(
+		'options-general.php',
 		'Mason WebDocs Settings',
 		'Mason WebDocs',
 		'manage_options',
 		'gmuw_fs',
 		'gmuw_fs_plugin_page',
-		'dashicons-index-card',
-		11
+		0
 	);
 
 }

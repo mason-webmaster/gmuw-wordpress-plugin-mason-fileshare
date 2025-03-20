@@ -66,6 +66,9 @@ include('php/taxonomy.php');
 //users
 include('php/users.php');
 
+// custom URL handling
+include('php/custom-urls.php');
+
 
 //register activation hook
 register_activation_hook(__FILE__, 'gmuw_fs_plugin_activate');

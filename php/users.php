@@ -108,7 +108,7 @@ function gmuw_fs_columns_user( $val, $column_name, $user_id ) {
             //loop through website permissions
             foreach ($user_website_ids as $user_website_id) {
               //display
-              $val.=get_term($user_website_id)->name.'<br />';
+              if (get_term($user_website_id)) $val.=get_term($user_website_id)->name.'<br />';
             }
             break;
 
@@ -123,7 +123,7 @@ function gmuw_fs_columns_user( $val, $column_name, $user_id ) {
             //loop through website permissions
             foreach ($user_website_ids as $user_website_id) {
               //display
-              $val.=get_term($user_website_id)->name.'<br />';
+              if (get_term($user_website_id)) $val.=get_term($user_website_id)->name.'<br />';
             }
             break;
     }

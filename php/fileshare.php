@@ -139,70 +139,7 @@ function gmuw_fs_index_file_table($posts){
 	//initialize return variable
 	$return_value='';
 
-	//process any actions
-	if ( isset($_GET['action']) &&
-		in_array($_GET['action'], array(
-		'attest',
-		'delete'
-	)) ) {
-
-		//get post id
-		$mypostid = isset($_GET['mypostid']) ? (int)$_GET['mypostid'] : 0;
-
-		//do we not have a good value?
-		if ($mypostid==0) {
-			$return_value='<div class="notice notice-error is-dismissable "><p>Bad post ID. Unable to '.$_GET['action'].'.</p></div>';
-		} else {
-
-			//do we not have permissions?
-			if (!(get_post($mypostid)->post_author == get_current_user_id() || current_user_can('manage_options') ) ) {
-
-				$return_value='<div class="notice notice-error is-dismissable "><p>You do not have permissions.</p></div>';
-
-			} else {
-
-				//we are good. we have a good id, and we have permissions...
-
-				if ($_GET['action']=='attest') {
-
-					//perform attestation
-					update_post_meta(
-						$mypostid,
-						'gmuw_fs_file_attestation',
-						array(
-							get_current_user_id(),
-							time()-14400, //minus the number of seconds in 4 hours to account for time zone difference
-						)
-					);
-
-					//trigger notification email
-					if (get_option('gmuw_fs_options')['gmuw_fs_email_notification_attest']==1) {
-						gmuw_fs_email_notification($_GET['action'],$mypostid);
-					}
-
-					//output
-					$return_value='<div class="notice notice-success is-dismissable"><p>'.get_user_by('id',get_current_user_id())->user_login.' attested for the file <a href="'.wp_get_attachment_url($mypostid).'" target="_blank">'.basename(get_attached_file($mypostid)).'</a> ('.$mypostid.').</p></div>';
-
-				}
-
-				if ($_GET['action']=='delete') {
-
-					//trigger notification email
-					if (get_option('gmuw_fs_options')['gmuw_fs_email_notification_delete']==1) {
-						gmuw_fs_email_notification($_GET['action'],$mypostid);
-					}
-
-					//output
-					$return_value='<div class="notice notice-error is-dismissable "><p>'.$_GET['action'].' post '.$mypostid.'</p></div>';
-
-				}
-
-			}
-
-		}
-
-	}
-
+	//if we have posts, show table
 	if ($posts) {
 
 		$return_value.='<table class="data_table">';

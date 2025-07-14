@@ -117,6 +117,35 @@ function gmuw_fs_custom_dashboard_meta_box_index() {
 
 }
 
+/**
+ * Adds an admin notice with introductory information
+ */
+add_action( 'admin_notices', 'gmuw_fs_admin_notice_introduction' );
+function gmuw_fs_admin_notice_introduction() {
+
+  //get globals
+  global $pagenow;
+
+  //only run this on the dashboard and upload pages
+  if ($pagenow=='index.php') {
+
+    echo '<div class="notice notice-info">';
+
+    echo '<h2>Welcome to WebDocs</h2>';
+    echo '<p>WebDocs is a repository for files intended for public download. Before adding a file to WebDocs, please confirm that it meets the required standards:</p>';
+    echo '<ul>';
+    echo '<li><strong>Purpose</strong>: The file must be a printable form or an official report or policy that must retain original formatting.</li>';
+    echo '<li><strong>Accessibility</strong>: The file must meet WCAG 2.1 AA accessibility standards. Use <a href="#">Panorama</a> to check accessibility — if Panorama gives it a green light, the document is accessible.</li>';
+    echo '</ul>';
+    echo '<p>Documents that don\'t meet both requirements may be removed during regular repository reviews.</p>';
+    echo '<p><a href="#">Need help or have a question?</a></p>';
+    echo '<p><a href="#">Learn more about Panorama or request Panorama access.</a></p>';
+
+    echo '</div>';
+
+  }
+
+}
 
 /**
  * Adds an admin notice indicating the user's current working website and providing the ability to change it

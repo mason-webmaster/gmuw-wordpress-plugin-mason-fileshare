@@ -13,6 +13,11 @@
     width:2em;
   }
 
+/* hide admin dashboard page heading */
+.wp-admin.index-php div.wrap h1:first-of-type {
+  display:none;
+}
+
 /* dashboard widgets */
 /* give svgs better alignment in widget tables */
 .dashboardwidget td svg {

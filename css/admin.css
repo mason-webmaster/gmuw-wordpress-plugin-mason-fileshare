@@ -138,3 +138,8 @@ body.post-type-attachment .wp_attachment_details.edit-form-section p:has(textare
 .media_page_enable-media-replace-enable-media-replace .emr_upload_form .option-flex-wrapper {
   display:none;
 }
+
+/* upload attestation */
+.gmuw_fileshare_upload_attestation ul {
+  list-style-type: none;
+}

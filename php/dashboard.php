@@ -41,6 +41,10 @@ function gmuw_fs_custom_dashboard_meta_boxes() {
    /* most recent your files */
   add_meta_box("gmuw_fs_custom_dashboard_meta_box_files_mostrecent_yours", "Your Recent Files", "gmuw_fs_custom_dashboard_meta_box_files", "dashboard","normal","",array("yours"));
 
+  /* panorama info */
+  add_meta_box("gmuw_fs_custom_dashboard_meta_box_panorama", "Panorama DocHub: Accessibility Verification Resources", "gmuw_fs_custom_dashboard_meta_box_panorama", "dashboard","normal");
+
+
 }
 
 /**
@@ -144,6 +148,29 @@ function gmuw_fs_admin_notice_introduction() {
     echo '</div>';
 
   }
+
+}
+
+/**
+ * Provides content for the dashboard 'panorama' meta box
+ */
+function gmuw_fs_custom_dashboard_meta_box_panorama() {
+
+  //Output content
+  echo '<p><strong>Check Accessibility with Panorama DocHub</strong></p>';
+  echo '<p><em>A green rating means your document is accessible.</em></p>';
+  echo '<p><a href="https://ati.gmu.edu/caresguide/panorama/" target="_blank">Panorama DocHub</a> is an accessibility tool supported by the Assistive Technology Initiative (ATI). It reviews Word, PowerPoint, and PDF files for compliance with WCAG 2.1 and helps Web Managers identify and fix accessibility issues.</p>';
+
+  echo '<h3>Get Access</h3>';
+  echo '<p>Web Managers can request Instructor access to use Panorama\'s review and remediation features:</p>';
+  echo '<ol>';
+  echo '<li>Log in at <a href="https://gmu.panorama.yuja.com/login" target="_blank">gmu.panorama.yuja.com/login</a></li>';
+  echo '<li>Email ATI to let them know you\'re a SiteMasonry Web Manager, you\'ve logged in to Panorama DocHub, and you\'d like Instructor-level access. </li>';
+  echo '</ol>';
+
+  echo '<h3>Panorama Doc Hub Rating Guide</h3>';
+  echo '<p>Green = WCAG 2.1 compliant<br />Yellow or Red = Needs remediation</p>';
+  echo '<p>Word and PowerPoint files can be fixed in DocHub. For PDF help, please contact <a href="https://ati.gmu.edu/welcome/requesting-services/" target="_blank">ATI</a>.</p>';
 
 }
 

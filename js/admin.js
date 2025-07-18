@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
   //regular datatables
   jQuery('table.data_table:not(.dashboardwidget)').DataTable({
     paging: false,
-    dom: 'Bfrtip',
+    dom: 'Bfritip',
     buttons: [
       'copy', 'excel', 'csv', 'print'
     ]

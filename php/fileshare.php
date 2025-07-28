@@ -104,9 +104,9 @@ function gmuw_fs_dashboard_widget_file_table($posts){
 			//does this file require attestation?
 			if (gmuw_fs_file_requires_attestation($post->ID)) {
 				$return_value.=' <span class="notice notice-error">';
-				$return_value.='*requires attestation ';
+				$return_value.='*requires verification ';
 				//attest link
-				$return_value.='<a class="admin-icon admin-attest" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Do you attest that this file is still in active use and is still required to be hosted?\')"></a> ';
+				$return_value.='<a class="admin-icon admin-attest" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Please Verify Accessibility and Web Standards Compliance \n\nBy verifying this document, you confirm that this document: \n\n-Cannot be easily converted into standard web content. \n-Is essential to official university communication and must retain original formatting (e.g., a printable form, policy, or report). \n-Does not collect or transmit sensitive or privileged information. \n-Meets WCAG 2.1 AA accessibility standards. \n\nIf the document does not meet all of these conditions, do not host it on Web Docs. \')"></a> ';
 				$return_value.='</span> ';
 			}
 			$return_value.='</td>';
@@ -205,7 +205,7 @@ function gmuw_fs_index_file_table($posts){
 
 			}
 			//does this file require attestation?
-			$return_value.=gmuw_fs_file_requires_attestation($post->ID) ? '<span class="notice notice-error">*requires attestation</span>' : '';
+			$return_value.=gmuw_fs_file_requires_attestation($post->ID) ? '<span class="notice notice-error">*requires verification</span>' : '';
 			$return_value.='</td>';
 
 			//actions
@@ -216,7 +216,7 @@ function gmuw_fs_index_file_table($posts){
 				$return_value.='<a class="button button-primary" href="/wp-admin/post.php?post='.$post->ID.'&action=edit">edit</a> ';
 				//$return_value.='<a class="button button-primary" href="/wp-admin/upload.php?item='.$post->ID.'">edit</a> ';
 				//attest button
-				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Do you attest that this file is still in active use and is still required to be hosted?\')">attest</a> ';
+				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=attest&mypostid='.$post->ID.'" onclick="return confirm(\'Please Verify Accessibility and Web Standards Compliance \n\nBy verifying this document, you confirm that this document: \n\n-Cannot be easily converted into standard web content. \n-Is essential to official university communication and must retain original formatting (e.g., a printable form, policy, or report). \n-Does not collect or transmit sensitive or privileged information. \n-Meets WCAG 2.1 AA accessibility standards. \n\nIf the document does not meet all of these conditions, do not host it on Web Docs. \')">verify</a> ';
 				//delete button
 				$return_value.='<a class="button" href="admin.php?page=gmuw_fs_file_index&action=delete&mypostid='.$post->ID.'" onclick="return confirm(\'Are you sure you want to delete this file?\')">delete</a> ';
 			}

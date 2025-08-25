@@ -67,8 +67,8 @@ function gmuw_fs_file_index_page(){
             $return_value='<div class="notice notice-error is-dismissable "><p>Bad post ID. Unable to '.$_GET['action'].'.</p></div>';
         } else {
 
-            //do we not have permissions?
-            if (!(get_post($mypostid)->post_author == get_current_user_id() || current_user_can('manage_options') ) ) {
+            //do we not have permissions? (not either the file author, an admin, or someone who can manage this file)
+            if (!(get_post($mypostid)->post_author == get_current_user_id() || current_user_can('manage_options') || gmuw_fs_can_user_edit_file(get_current_user_id(),$mypostid) ) ) {
 
                 $return_value='<div class="notice notice-error is-dismissable "><p>You do not have permissions.</p></div>';
 

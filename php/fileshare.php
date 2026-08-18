@@ -166,7 +166,7 @@ function gmuw_fs_index_file_table($posts){
 			}
 
 			//title/link
-			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a></td>';
+			$return_value.='<td><a href="'.wp_get_attachment_url($post->ID).'" target="_blank">'.get_the_title($post).'</a><br />'.wp_get_attachment_url($post->ID).'</td>';
 
 			//related website
 			$return_value.='<td>';
